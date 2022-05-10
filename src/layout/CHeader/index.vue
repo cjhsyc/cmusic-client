@@ -29,11 +29,22 @@ import CIcon from '../../components/CIcon.vue'
 import HeaderNav from './HeaderNav.vue'
 import {Search} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
-import {Icon} from '@/enums'
+import {Icon, NavName, RouterName} from '@/enums'
+import hook from '@/hooks'
+
+const {routerManager, changeIndex} = hook()
 
 const musicName = 'C-music'
 const keywords = ''
-const goPage = () => {
+
+const goPage = (path?: string, name?: string) => {
+  if (!path && !name) {
+    changeIndex(NavName.Home);
+    routerManager(RouterName.Home, {path: RouterName.Home});
+  } else {
+    changeIndex(name);
+    routerManager(path, {path});
+  }
 }
 const goSearch = () => {
 }
@@ -109,7 +120,7 @@ const headerNavList = [{name: '首页'}, {name: '歌单'}, {name: '歌单'}]
   margin: 0 20px;
   width: 100%;
 
-  /deep/ input {
+  :deep(input) {
     text-indent: 5px;
     max-width: @header-search-max-width;
     min-width: @header-search-min-width;

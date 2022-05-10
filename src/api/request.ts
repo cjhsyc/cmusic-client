@@ -1,19 +1,24 @@
 import axios from 'axios'
 
+// @ts-ignore
 const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 5000
 })
 
-request.interceptors.request.use(config => {
+// @ts-ignore
+request.interceptors.request.use((config) => {
   return config
-}, error => {
+}, // @ts-ignore
+    (error) => {
   return Promise.reject(error)
 })
 
-request.interceptors.response.use(response => {
+// @ts-ignore
+request.interceptors.response.use((response) => {
   return response.data
-}, error => {
+}, // @ts-ignore
+    (error) => {
   return Promise.reject(error)
 })
 

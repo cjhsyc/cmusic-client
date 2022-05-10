@@ -5,7 +5,7 @@
       <li class="card-frame" v-for="(item, index) in playList" :key="index">
         <div class="card" @click="goAblum(item)">
           <el-image class="card-img" fit="contain" :src="attachImageUrl(item.pic)"/>
-          <div class="mask" @click="goAblum(item)">
+          <div class="mask">
             <c-icon class="mask-icon" :icon="Icon.BOFANG"></c-icon>
           </div>
         </div>
@@ -18,25 +18,24 @@
 <script setup lang="ts">
 import CIcon from './CIcon.vue'
 import {attachImageUrl} from '@/api'
-import { Icon } from '@/enums'
-
-interface Item {
-  id: number,
-  title: string,
-  pic: string,
-  style: string,
-  introduction: string
-}
+import {Icon} from '@/enums'
+import {useAudioStore} from "@/store";
+import hook from '@/hooks'
 
 interface Props {
-  playList: Array<Song|Singer>
+  playList: Array<Song | Singer>
   title: string
+  path: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
-const goAblum = (item) => {
+const audioStore = useAudioStore()
+const {routerManager} = hook()
 
+const goAblum = (item: Song) => {
+  audioStore.setSongDetails(item)
+  routerManager(props.path, {path: `/${props.path}/${item.id}`})
 }
 </script>
 
@@ -79,9 +78,7 @@ const goAblum = (item) => {
   .card-name {
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    text-align: center;
     margin: 0.5rem 0;
   }
 

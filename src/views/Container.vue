@@ -5,7 +5,10 @@
     </el-header>
     <el-main>
       <router-view></router-view>
+      <current-play></current-play>
       <play-bar></play-bar>
+      <scroll-top></scroll-top>
+      <c-audio></c-audio>
     </el-main>
     <el-footer>
       <c-footer></c-footer>
@@ -16,7 +19,10 @@
 <script setup lang="ts">
 import CHeader from '@/layout/CHeader/index.vue'
 import CFooter from '@/layout/CFooter.vue'
+import CurrentPlay from '@/layout/CurrentPlay.vue'
 import PlayBar from '@/components/PlayBar.vue'
+import ScrollTop from '@/layout/ScrollTop.vue'
+import CAudio from '@/layout/CAudio.vue'
 </script>
 
 <style scoped>

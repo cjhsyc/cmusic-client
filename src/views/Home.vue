@@ -17,8 +17,8 @@ import {swiperList} from "@/enums"
 import {useSongStore} from '@/store'
 import {ref} from "vue";
 
-const songList = ref([])
-const singerList = ref([])
+const songList = ref<Song[]>([])
+const singerList = ref<Singer[]>([])
 
 const songStore = useSongStore()
 
@@ -29,7 +29,6 @@ songStore.reqSongList().then(() => {
 })
 songStore.reqSingerList().then(() => {
   singerList.value = songStore.popularSinger
-  console.log(singerList.value)
 }).catch(err => {
   console.log(err)
 })
@@ -49,7 +48,7 @@ songStore.reqSingerList().then(() => {
   }
 }
 
-.swiper-container /deep/ .el-carousel__indicators, .el-carousel__indicators--outside {
+.swiper-container:deep(.el-carousel__indicators, .el-carousel__indicators--outside) {
   display: inline-block;
   transform: translateX(30vw);
 }

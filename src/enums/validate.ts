@@ -1,5 +1,5 @@
 // 登录规则
-const validateName = (rule, value, callback) => {
+const validateName = (rule: string, value: string, callback: Function) => {
   if (!value) {
     return callback(new Error("用户名不能为空"));
   } else {
@@ -7,7 +7,7 @@ const validateName = (rule, value, callback) => {
   }
 };
 
-export const validatePassword = (rule, value, callback) => {
+export const validatePassword = (rule: string, value: string, callback: Function) => {
   if (value === "") {
     callback(new Error("密码不能为空"));
   } else {

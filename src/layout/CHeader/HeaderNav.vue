@@ -14,9 +14,10 @@ interface Props {
 }
 
 defineProps<Props>()
-// console.log(activeName)
-const handleChangeView = (item) => {
-  
+const emit = defineEmits(['click'])
+
+function handleChangeView(item: any) {
+  emit("click", item.path, item.name);
 }
 </script>
 

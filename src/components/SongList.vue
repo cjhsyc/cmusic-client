@@ -12,15 +12,8 @@
             </el-icon>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item
-                    :icon="Download"
-                    @click="
-                    download({
-                      songUrl: scope.row.url,
-                      songName: scope.row.name,
-                    })
-                  "
-                >下载
+                <el-dropdown-item :icon="Download"
+                                  @click="download({songUrl: scope.row.url,songName: scope.row.name,})">下载
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>

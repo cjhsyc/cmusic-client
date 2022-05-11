@@ -16,7 +16,7 @@
         <span>{{ rank * 2 }}</span>
         <div>
           <h3>{{ assistText }} {{ score * 2 }}</h3>
-          <el-rate allow-half v-model="score" :disabled="disabledRank"></el-rate>
+          <el-rate allow-half v-model="score" :disabled="disabledRank" @click="pushValue()"></el-rate>
         </div>
       </div>
       <!--歌曲-->

@@ -1,6 +1,6 @@
 <template>
   <transition name="aside-fade">
-    <div class="yin-current-play" v-show="showAside">
+    <div class="current-play" v-show="showAside">
       <h2 class="title">当前播放</h2>
       <div class="control">共 {{ (currentPlayList?.length) || 0 }} 首</div>
       <ul class="menus">
@@ -62,7 +62,7 @@ const showAside = computed(() => configStore.showAside) // 是否显示侧边栏
   opacity: 0;
 }
 
-.yin-current-play {
+.current-play {
   font-size: 14px;
   width: @current-play;
   position: fixed;

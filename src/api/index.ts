@@ -8,9 +8,18 @@ export const attachImageUrl = (url: string) => url ? `${baseurl}/${url}` :
 
 // =======================> 用户 API
 // 登录
-export const login = (params: any) => request.post('user/login/status', params)
+export const login = (params: URLSearchParams) => request.post('user/login/status', params)
 // 注册
-export const register = (params: any) => request.post('user/add', params)
+export const register = (params: URLSearchParams) => request.post('user/add', params)
+// 删除用户
+export const deleteUser = (id: string) => request.get(`user/delete?id=${id}`)
+// 更新用户信息
+export const updateUserMsg = (params: URLSearchParams) => request.post(`user/update`, params)
+export const updateUserPassword = (params: URLSearchParams) => request.post(`user/updatePassword`, params)
+// 返回指定ID的用户
+export const getUserOfId = (id: string) => request.get(`user/detail?id=${id}`)
+// 更新用户头像
+export const uploadUrl = (userId: string) => `${baseurl}/user/avatar/update?id=${userId}`
 
 // =======================> 歌单 API
 // 获取全部歌单
@@ -26,7 +35,7 @@ export const getListSongOfSongId = (songListId: string) => request.get(`listSong
 // 返回所有歌手
 export const getAllSinger = () => request.get("singer")
 // 通过性别对歌手分类
-export const getSingerOfSex = (sex: any) => request.get(`singer/sex/detail?sex=${sex}`)
+export const getSingerOfSex = (sex: number) => request.get(`singer/sex/detail?sex=${sex}`)
 
 // =======================> 歌曲 API
 // 返回指定歌曲ID的歌曲

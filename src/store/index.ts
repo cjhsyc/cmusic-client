@@ -99,9 +99,13 @@ export const useAudioStore = defineStore('audio', {
     setVolume(volume: number) {
       this.volume = volume
     },
-    setCurrentPlayIndex(currentPlayIndex: number){
+    setCurrentPlayIndex(currentPlayIndex: number) {
       this.currentPlayIndex = currentPlayIndex
     }
+  },
+  // 开启数据缓存
+  persist: {
+    enabled: true
   }
 })
 
@@ -127,6 +131,10 @@ export const useConfigStore = defineStore('config', {
     setSearchWord(searchWord: string) {
       this.searchWord = searchWord;
     },
+  },
+  // 开启数据缓存
+  persist: {
+    enabled: true
   }
 })
 
@@ -148,5 +156,9 @@ export const useUserStore = defineStore('user', {
     setUserPic(userPic: string) {
       this.userPic = userPic;
     }
+  },
+  // 开启数据缓存
+  persist: {
+    enabled: true
   }
 })

@@ -37,23 +37,11 @@
       </div>
       <div class="song-ctr song-edit">
         <!--收藏-->
-        <c-icon
-            class="play-show"
-            :class="{ active: isCollection }"
-            :icon="isCollection ? Icon.Like : Icon.Dislike"
-            @click="changeCollection"
-        ></c-icon>
+        <c-icon class="play-show" :class="{ active: isCollection }" :icon="isCollection ? Icon.Like : Icon.Dislike"
+                @click="changeCollection"></c-icon>
         <!--下载-->
-        <c-icon
-            class="play-show"
-            :icon="Icon.XIAZAI"
-            @click="
-            download({
-              songUrl,
-              songName: singerName + '-' + songTitle,
-            })
-          "
-        ></c-icon>
+        <c-icon class="play-show" :icon="Icon.XIAZAI"
+                @click="download({songUrl,songName: singerName + '-' + songTitle,})"></c-icon>
         <!--歌曲列表-->
         <c-icon :icon="Icon.LIEBIAO" @click="changeAside"></c-icon>
       </div>

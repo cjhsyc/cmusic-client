@@ -1,57 +1,88 @@
 <template>
   <div class="header">
     <!--图标-->
-    <div class="header-logo" @click="goPage()">
+    <div class="header-logo" @click="goPage('','')">
       <c-icon :icon="Icon.ERJI"></c-icon>
       <span>{{ musicName }}</span>
     </div>
-    <header-nav class="yin-header-nav" :styleList="headerNavList" :activeName="activeNavName"
+    <header-nav class="header-nav" :styleList="headerNavList" :activeName="activeNavName"
                 @click="goPage"></header-nav>
     <!--搜索框-->
     <div class="header-search">
-      <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch()"/>
+      <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch"/>
     </div>
     <!--设置-->
     <header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></header-nav>
-    <!--<el-dropdown class="user-wrap" v-if="token" trigger="click">
-      <el-image class="user" fit="contain" :src="attachImageUrl(userPic)" />
+    <el-dropdown class="user-wrap" v-if="token" trigger="click">
+      <el-image class="user" fit="cover" :src="attachImageUrl(userPic)"/>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">{{ item.name }}</el-dropdown-item>
+          <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">
+            {{ item.name }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </template>
-    </el-dropdown>-->
+    </el-dropdown>
   </div>
 </template>
 
 <script setup lang="ts">
 import CIcon from '../../components/CIcon.vue'
 import HeaderNav from './HeaderNav.vue'
-import {Search} from "@element-plus/icons-vue";
-import {reactive, ref} from "vue";
-import {Icon, NavName, RouterName} from '@/enums'
+import {Search} from "@element-plus/icons-vue"
+import {getCurrentInstance, ComponentInternalInstance, ref, computed} from "vue"
+import {Icon, NavName, RouterName, HEADERNAVLIST, MUSICNAME, SIGNLIST, MENULIST} from '@/enums'
 import hook from '@/hooks'
+import {useConfigStore, useUserStore} from '@/store'
+import {attachImageUrl} from '@/api'
 
 const {routerManager, changeIndex} = hook()
+const configStore = useConfigStore()
+const userStore = useUserStore()
 
-const musicName = 'C-music'
-const keywords = ''
+const {proxy} = getCurrentInstance() as ComponentInternalInstance
+const keywords = ref('')
+const headerNavList = ref(HEADERNAVLIST) // 左侧导航栏
+const musicName = ref(MUSICNAME)
+const signList = ref(SIGNLIST) // 右侧导航栏
+const menuList = ref(MENULIST) // 用户下拉菜单项
 
-const goPage = (path?: string, name?: string) => {
+const activeNavName = computed(() => configStore.activeNavName)
+const userPic = computed(() => userStore.userPic)
+const token = computed(() => configStore.token)
+
+const goPage = (path: string, name: string) => {
   if (!path && !name) {
-    changeIndex(NavName.Home);
-    routerManager(RouterName.Home, {path: RouterName.Home});
+    changeIndex(NavName.Home)
+    routerManager(RouterName.Home, {path: RouterName.Home})
   } else {
-    changeIndex(name);
-    routerManager(path, {path});
+    changeIndex(name)
+    routerManager(path, {path})
   }
 }
 const goSearch = () => {
+  if (keywords.value !== "") {
+    configStore.setSearchWord(keywords.value)
+    routerManager(RouterName.Search, {path: RouterName.Search, query: {keywords: keywords.value}})
+  } else {
+    (proxy as any).$message({
+      message: "搜索内容不能为空",
+      type: "error",
+    })
+  }
 }
-const token = false
-const signList = reactive([{name: '登录'}, {name: '注册'}])
-const activeNavName = ref('首页')
-const headerNavList = [{name: '首页'}, {name: '歌单'}, {name: '歌单'}]
+
+const goMenuList = (path: string) => {
+  if (path == RouterName.SignOut) {
+    configStore.setToken(false)
+    userStore.$reset()
+    changeIndex(NavName.Home)
+    routerManager(RouterName.Home, {path: RouterName.Home})
+  } else {
+    routerManager(path, {path})
+  }
+}
+
 </script>
 
 <style lang="less" scoped>

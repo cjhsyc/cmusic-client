@@ -13,12 +13,14 @@
 
 <script setup lang="ts">
 import PlayList from '@/components/PlayList.vue'
-import {swiperList} from "@/enums"
+import {NavName, swiperList} from "@/enums"
 import {useSongStore} from '@/store'
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import hook from '@/hooks'
 
 const songList = ref<Song[]>([])
 const singerList = ref<Singer[]>([])
+const {changeIndex} = hook()
 
 const songStore = useSongStore()
 
@@ -31,6 +33,9 @@ songStore.reqSingerList().then(() => {
   singerList.value = songStore.popularSinger
 }).catch(err => {
   console.log(err)
+})
+onMounted(() => {
+  changeIndex(NavName.Home);
 })
 </script>
 

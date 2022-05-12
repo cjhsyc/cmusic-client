@@ -30,7 +30,7 @@
 import CIcon from '../../components/CIcon.vue'
 import HeaderNav from './HeaderNav.vue'
 import {Search} from "@element-plus/icons-vue"
-import {getCurrentInstance, ComponentInternalInstance, ref, computed} from "vue"
+import {ref, computed} from "vue"
 import {Icon, NavName, RouterName, HEADERNAVLIST, MUSICNAME, SIGNLIST, MENULIST} from '@/enums'
 import hook from '@/hooks'
 import {useConfigStore, useUserStore} from '@/store'
@@ -40,7 +40,6 @@ const {routerManager, changeIndex} = hook()
 const configStore = useConfigStore()
 const userStore = useUserStore()
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const keywords = ref('')
 const headerNavList = ref(HEADERNAVLIST) // 左侧导航栏
 const musicName = ref(MUSICNAME)
@@ -65,7 +64,7 @@ const goSearch = () => {
     configStore.setSearchWord(keywords.value)
     routerManager(RouterName.Search, {path: RouterName.Search, query: {keywords: keywords.value}})
   } else {
-    (proxy as any).$message({
+    ElMessage({
       message: "搜索内容不能为空",
       type: "error",
     })

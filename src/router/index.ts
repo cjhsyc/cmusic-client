@@ -59,6 +59,18 @@ const routes: RouteRecordRaw[] = [
           }
         ]
       },
+      {
+        path: "/song-sheet",
+        component: () => import("@/views/songSheet/index.vue"),
+      },
+      {
+        path: "/singer",
+        component: () => import("@/views/singer/index.vue"),
+      },
+      {
+        path: "/search",
+        component: () => import("@/views/search/index.vue"),
+      },
     ]
   }
 ]

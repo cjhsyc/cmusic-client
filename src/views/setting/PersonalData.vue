@@ -35,14 +35,13 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, getCurrentInstance, reactive, ComponentInternalInstance, ref} from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 import {useUserStore} from "@/store";
 import hook from "@/hooks";
 import {AREA, SignUpRules} from "@/enums";
 import {updateUserMsg, getUserOfId} from "@/api";
 import {getBirth} from "@/utils";
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const userStore = useUserStore()
 const {goBack} = hook()
 
@@ -91,7 +90,7 @@ async function saveMsg() {
   params.append("location", registerForm.location)
 
   const result = await updateUserMsg(params)
-  ;(proxy as any).$message({
+  ElMessage({
     message: result.message,
     type: result.type,
   })

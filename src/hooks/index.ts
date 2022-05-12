@@ -1,8 +1,9 @@
 import {useConfigStore, useAudioStore} from '@/store'
-import {computed, getCurrentInstance, ComponentInternalInstance} from "vue"
+import {computed} from "vue"
 import {downloadMusic} from '@/api'
 import {RouterName} from "@/enums"
 import {LocationQueryRaw, useRouter} from "vue-router"
+import {ElMessage} from "element-plus";
 
 interface routerOptions {
   path: string
@@ -10,7 +11,6 @@ interface routerOptions {
 }
 
 export default () => {
-  const {proxy} = getCurrentInstance() as ComponentInternalInstance
   const configStore = useConfigStore()
   const audioStore = useAudioStore()
   const token = computed(() => configStore.token)
@@ -38,7 +38,7 @@ export default () => {
   function checkStatus(status?: boolean) {
     if (!token.value) {
       if (status !== false)
-        (proxy as any).$message({
+        ElMessage({
           message: "请先登录",
           type: "warning",
         })
@@ -66,7 +66,7 @@ export default () => {
   // 下载
   async function download({songUrl, songName}: { songUrl: string, songName: string }) {
     if (!songUrl) {
-      (proxy as any).$message({
+      ElMessage({
         message: "下载链接为空！",
         type: "error",
       })

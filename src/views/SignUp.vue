@@ -45,14 +45,13 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, getCurrentInstance, ComponentInternalInstance, ref} from "vue";
+import {reactive, ref} from "vue";
 import hook from "@/hooks";
 import LoginLogo from "@/components/LoginLogo.vue";
 import {register} from "@/api";
 import {getBirth} from "@/utils";
 import {AREA, RouterName, NavName, SignUpRules} from "@/enums";
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const {routerManager, changeIndex, goBack} = hook()
 
 const registerForm = reactive({
@@ -87,7 +86,7 @@ async function handleSignUp() {
 
   try {
     const result = await register(params)
-    ;(proxy as any).$message({
+    ElMessage({
       message: result.message,
       type: result.type,
     });

@@ -4,7 +4,9 @@
       <c-header></c-header>
     </el-header>
     <el-main>
-      <router-view></router-view>
+      <div id="box">
+        <router-view></router-view>
+      </div>
       <current-play></current-play>
       <play-bar></play-bar>
       <scroll-top></scroll-top>
@@ -27,7 +29,7 @@ import CAudio from '@/layout/CAudio.vue'
 
 <style scoped>
 .el-container {
-  min-height: calc(100% - 60px);
+  min-height: calc(100% - 40px);
 }
 .el-header {
   padding: 0;
@@ -35,5 +37,8 @@ import CAudio from '@/layout/CAudio.vue'
 .el-main {
   padding-left: 0;
   padding-right: 0;
+}
+#box{
+  min-height: calc(100vh - 200px);
 }
 </style>

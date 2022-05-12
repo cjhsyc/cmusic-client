@@ -16,16 +16,15 @@
 </template>
 
 <script setup lang="ts">
-import {getCurrentInstance, computed, ComponentInternalInstance} from "vue";
+import {computed} from "vue";
 import {Delete} from "@element-plus/icons-vue";
 import PersonalData from "./PersonalData.vue";
 import Password from "./Password.vue";
 import {deleteUser} from "@/api";
-import {useConfigStore,useUserStore} from "@/store";
+import {useConfigStore, useUserStore} from "@/store";
 import hook from "@/hooks";
 import {RouterName} from "@/enums";
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const configStore = useConfigStore()
 const userStore = useUserStore()
 const {routerManager} = hook()
@@ -34,7 +33,7 @@ const userId = computed(() => userStore.userId)
 
 async function cancelAccount() {
   const result = await deleteUser(userId.value)
-  ;(proxy as any).$message({
+  ElMessage({
     message: result.message,
     type: result.type,
   })
@@ -48,7 +47,7 @@ async function cancelAccount() {
 @import (reference) "src/assets/css/var";
 
 h1 {
-  border-bottom: 1px solid @color-grey;
+  border-bottom: 3px solid @color-light-grey;
 }
 
 .content {

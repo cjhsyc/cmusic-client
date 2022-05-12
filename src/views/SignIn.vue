@@ -22,13 +22,12 @@
 
 <script setup lang="ts">
 import LoginLogo from "@/components/LoginLogo.vue";
-import {reactive, getCurrentInstance, ComponentInternalInstance, ref} from "vue";
+import {reactive, ref} from "vue";
 import hook from "@/hooks";
 import {login} from "@/api";
 import {NavName, RouterName, SignInRules} from "@/enums";
 import {useUserStore, useConfigStore} from '@/store'
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const {routerManager, changeIndex} = hook();
 const userStore = useUserStore();
 const configStore = useConfigStore();
@@ -44,18 +43,18 @@ const signInForm = ref<any>()
 async function handleLoginIn() {
   let canRun = true;
   signInForm.value!.validate((valid: boolean) => {
-    if (!valid) return (canRun = false);
-  });
-  if (!canRun) return;
+    if (!valid) return (canRun = false)
+  })
+  if (!canRun) return
 
   const params = new URLSearchParams();
-  params.append("username", registerForm.username);
-  params.append("password", registerForm.password);
+  params.append("username", registerForm.username)
+  params.append("password", registerForm.password)
 
   try {
     const result = await login(params)
     console.log(result)
-    ;(proxy as any).$message({
+    ElMessage({
       message: result.message,
       type: result.type,
     });
@@ -65,17 +64,17 @@ async function handleLoginIn() {
       userStore.setUsername(result.data[0].username)
       userStore.setUserPic(result.data[0].avator)
       configStore.setToken(true)
-      changeIndex(NavName.Home);
-      console.log(RouterName.Home)
-      routerManager(RouterName.Home, {path: RouterName.Home});
+      changeIndex(NavName.Home)
+      console.log(result)
+      routerManager(RouterName.Home, {path: RouterName.Home})
     }
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }
 
 function handleSignUp() {
-  routerManager(RouterName.SignUp, {path: RouterName.SignUp});
+  routerManager(RouterName.SignUp, {path: RouterName.SignUp})
 }
 
 </script>

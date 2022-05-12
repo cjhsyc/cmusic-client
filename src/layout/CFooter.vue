@@ -12,8 +12,7 @@ import { readonly } from "vue";
 const footerList = readonly([
   "关于 | 帮助 | 条款 | 反馈",
   "Copyright © 2019 Yin-Hongwei",
-]);
-
+])
 </script>
 
 <style lang="less" scoped>

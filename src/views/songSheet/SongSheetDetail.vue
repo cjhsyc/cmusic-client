@@ -26,13 +26,12 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, getCurrentInstance, ComponentInternalInstance} from "vue"
+import {ref, computed} from "vue"
 import hook from "@/hooks"
 import SongList from "@/components/SongList.vue"
 import {getListSongOfSongId, getSongOfId, setRank, getUserRank, getRankOfSongListId, attachImageUrl} from "@/api"
 import {useUserStore, useAudioStore,} from '@/store'
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const userStore = useUserStore()
 const audioStore = useAudioStore();
 const {checkStatus} = hook()
@@ -84,7 +83,7 @@ async function pushValue() {
   params.append("score", (score.value * 2).toString())
 
   const result = await setRank(params)
-  ;(proxy as any).$message({
+  ElMessage({
     message: result.message,
     type: result.type,
   })

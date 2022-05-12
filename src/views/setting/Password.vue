@@ -17,14 +17,13 @@
 </template>
 
 <script setup lang="ts">
-import {getCurrentInstance, computed, reactive, ComponentInternalInstance, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {useUserStore} from "@/store";
 import hook from "@/hooks";
 import {updateUserPassword} from "@/api";
 import {validatePassword} from "@/enums";
 
 const userStore = useUserStore()
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const {goBack} = hook()
 
 const passwordForm = ref<any>()
@@ -72,10 +71,10 @@ async function confirm() {
   params.append("password", form.newPassword)
 
   const result = await updateUserPassword(params)
-  ;(proxy as any).$message({
+  ElMessage({
     message: result.message,
     type: result.type,
-  });
+  })
   if (result.success) goBack()
 }
 

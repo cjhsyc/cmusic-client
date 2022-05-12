@@ -43,7 +43,7 @@
         <c-icon class="play-show" :icon="Icon.XIAZAI"
                 @click="download({songUrl,songName: singerName + '-' + songTitle,})"></c-icon>
         <!--歌曲列表-->
-        <c-icon :icon="Icon.LIEBIAO" @click="changeAside"></c-icon>
+        <c-icon :icon="Icon.LIEBIAO" @click.stop="changeAside"></c-icon>
       </div>
     </div>
   </div>
@@ -53,12 +53,10 @@
 import CIcon from './CIcon.vue'
 import {Icon} from '@/enums'
 import {attachImageUrl, collectionIs, deleteCollection, setCollection} from '@/api'
-import {computed, onMounted, reactive, ref, watch, getCurrentInstance, ComponentInternalInstance} from "vue"
+import {computed, onMounted, reactive, ref, watch} from "vue"
 import {useAudioStore, useUserStore, useConfigStore} from "@/store"
 import {formatSeconds} from '@/utils'
 import hook from '@/hooks'
-
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 
 const {playMusic, checkStatus, download} = hook()
 const audioStore = useAudioStore()
@@ -141,7 +139,7 @@ async function changeCollection() {
       ? (await deleteCollection(params))
       : (await setCollection(params))
 
-  ;(proxy as any).$message({
+  ElMessage({
     message: result.message,
     type: result.type,
   })

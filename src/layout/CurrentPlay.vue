@@ -1,13 +1,10 @@
 <template>
   <transition name="aside-fade">
-    <div class="current-play" v-show="showAside">
+    <div class="current-play" v-if="showAside">
       <h2 class="title">当前播放</h2>
       <div class="control">共 {{ (currentPlayList?.length) || 0 }} 首</div>
       <ul class="menus">
-        <li
-            v-for="(item, index) in currentPlayList"
-            :class="{ 'is-play': songId === item.id }"
-            :key="index"
+        <li v-for="(item, index) in currentPlayList" :class="{ 'is-play': songId === item.id }" :key="index"
             @click="playMusic({
             id: item.id,
             url: item.url,
@@ -25,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue"
+import {computed, onMounted} from "vue"
 import {useAudioStore, useConfigStore} from '@/store'
 import hook from "@/hooks"
 
@@ -37,12 +34,12 @@ const songId = computed(() => audioStore.songId) // 音乐 ID
 const currentPlayList = computed(() => audioStore.currentPlayList) // 当前播放
 const showAside = computed(() => configStore.showAside) // 是否显示侧边栏
 
-/*onMounted(() => {
-  document.addEventListener('click', () => {
-    console.log('document')
+onMounted(() => {
+  console.log(document.getElementById('box'))
+  document.getElementById('box')!.addEventListener('click', () => {
     configStore.setShowAside(false)
   }, true)
-})*/
+})
 </script>
 
 <style lang="less" scoped>

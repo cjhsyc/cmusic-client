@@ -14,12 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, getCurrentInstance, ComponentInternalInstance} from "vue";
+import {ref, computed} from "vue";
 import {useUserStore} from "@/store";
 import {UploadFilled} from "@element-plus/icons-vue";
 import {uploadUrl} from "@/api";
 
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
 const userStore = useUserStore();
 
 const uploadTypes = ref(["jpg", "jpeg", "png", "gif"]);
@@ -35,11 +34,11 @@ function beforeAvatarUpload(file: any) {
   const isExistFileType = uploadTypes.value.includes(file.type.replace(/image\//, ""));
 
   if (isLt10M > ltCode || isLt10M <= 0) {
-    (proxy as any).$message.error(`图片大小范围是 0~${ltCode}MB!`)
+    ElMessage.error(`图片大小范围是 0~${ltCode}MB!`)
     return false
   }
   if (!isExistFileType) {
-    (proxy as any).$message.error(`图片只支持 ${uploadTypes.value.join("、")} 格式!`)
+    ElMessage.error(`图片只支持 ${uploadTypes.value.join("、")} 格式!`)
     return false
   }
 
@@ -47,7 +46,7 @@ function beforeAvatarUpload(file: any) {
 }
 
 function handleAvatarSuccess(response: any, file: any) {
-  (proxy as any).$message({
+  ElMessage({
     message: response.message,
     type: response.type,
   });

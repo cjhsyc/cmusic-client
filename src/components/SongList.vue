@@ -25,35 +25,22 @@
 </template>
 
 <script setup lang="ts">
-import {getCurrentInstance, toRefs, computed, reactive, ComponentInternalInstance} from "vue"
+import {toRefs, computed} from "vue"
 import hook from "@/hooks"
 import {MoreFilled, Download} from "@element-plus/icons-vue"
-import {deleteCollection} from "@/api"
-import {Icon} from "@/enums"
-import {useAudioStore, useUserStore} from "@/store"
+import {useAudioStore} from "@/store"
 
 interface Props {
   songList: Array<Song>
 }
 
 const props = defineProps<Props>()
-defineEmits(['changeData'])
 
-const {getSongTitle, getSingerName, playMusic, checkStatus, download} = hook()
-const {proxy} = getCurrentInstance() as ComponentInternalInstance
+const {getSongTitle, getSingerName, playMusic, download} = hook()
 const audioStore = useAudioStore()
-const userStore = useUserStore()
 
 const {songList} = toRefs(props)
-
-const iconList = reactive({
-  dislike: Icon.Dislike,
-  like: Icon.Like,
-})
-
-const songUrl = computed(() => audioStore.songUrl)
 const singerName = computed(() => audioStore.singerName)
-const songTitle = computed(() => audioStore.songTitle)
 const dataList = computed(() => {
   const list: any[] = []
   songList.value.forEach((item: any, index) => {
@@ -79,25 +66,6 @@ function handleClick(row: PlayMusicAddName) {
 
 function handleEdit(row: PlayMusic) {
   console.log("row", row)
-}
-
-const userId = computed(() => userStore.userId)
-
-async function removeCollection({id}: { id: string }) {
-  if (!checkStatus()) return
-
-  const params = new URLSearchParams()
-  params.append("userId", userId.value)
-  params.append("type", "0") // 0 代表歌曲， 1 代表歌单
-  params.append("songId", id)
-
-  const result = await deleteCollection(params)
-  ;(proxy as any).$message({
-    message: result.message,
-    type: result.type,
-  })
-
-  if (result.data === false) (proxy as any).$emit("changeData", result.data)
 }
 </script>
 

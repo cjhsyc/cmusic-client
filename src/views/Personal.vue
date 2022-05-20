@@ -51,11 +51,11 @@ function goPage() {
 
 async function getUserInfo(id: string) {
   const result = await getUserOfId(id)
-  personalInfo.username = result.data[0].username;
-  personalInfo.userSex = result.data[0].sex;
-  personalInfo.birth = result.data[0].birth;
-  personalInfo.introduction = result.data[0].introduction;
-  personalInfo.location = result.data[0].location;
+  personalInfo.username = result.data.username;
+  personalInfo.userSex = result.data.sex;
+  personalInfo.birth = result.data.birth;
+  personalInfo.introduction = result.data.introduction;
+  personalInfo.location = result.data.location;
 }
 
 // 获取收藏的歌曲

@@ -8,7 +8,7 @@
     <div class="control-box">
       <div class="info-box">
         <!--歌曲图片-->
-        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)" @click="goPlayerPage"/>
+        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)"/>
         <!--播放开始结束时间-->
         <div v-if="songId">
           <div class="song-info">{{ songTitle }} - {{ singerName }}</div>
@@ -155,9 +155,6 @@ const changeTime = () => {
   audioStore.setChangeTime(duration.value * (nowTime.value * 0.01))
 }
 
-const goPlayerPage = () => {
-
-}
 const changePlayState = () => {
   playStateIndex.value = playStateIndex.value >= playStateList.length - 1 ? 0 : ++playStateIndex.value
   playState.value = playStateList[playStateIndex.value]

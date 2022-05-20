@@ -1,13 +1,13 @@
 <template>
   <el-form ref="passwordForm" label-width="70px" :model="form" :rules="rules">
     <el-form-item label="旧密码" prop="oldPassword">
-      <el-input type="password" v-model="form.oldPassword"/>
+      <el-input type="password" v-model.trim="form.oldPassword"/>
     </el-form-item>
     <el-form-item label="新密码" prop="newPassword">
-      <el-input type="password" v-model="form.newPassword"/>
+      <el-input type="password" v-model.trim="form.newPassword"/>
     </el-form-item>
     <el-form-item label="密码确认" prop="confirmPassword">
-      <el-input type="password" v-model="form.confirmPassword"/>
+      <el-input type="password" v-model.trim="form.confirmPassword"/>
     </el-form-item>
     <el-form-item>
       <el-button @click="clearData()">重置</el-button>

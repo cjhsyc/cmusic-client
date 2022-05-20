@@ -6,10 +6,10 @@
     </div>
     <el-form ref="signInForm" status-icon :model="registerForm" :rules="SignInRules">
       <el-form-item prop="username">
-        <el-input placeholder="用户名" v-model="registerForm.username"></el-input>
+        <el-input placeholder="用户名" v-model.trim="registerForm.username"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" placeholder="密码" v-model="registerForm.password"
+        <el-input type="password" placeholder="密码" v-model.trim="registerForm.password"
                   @keyup.enter="handleLoginIn"></el-input>
       </el-form-item>
       <el-form-item class="sign-btn">
@@ -65,7 +65,6 @@ async function handleLoginIn() {
       userStore.setUserPic(result.data[0].avator)
       configStore.setToken(true)
       changeIndex(NavName.Home)
-      console.log(result)
       routerManager(RouterName.Home, {path: RouterName.Home})
     }
   } catch (error) {

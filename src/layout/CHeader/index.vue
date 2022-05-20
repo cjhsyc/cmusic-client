@@ -9,7 +9,7 @@
                 @click="goPage"></header-nav>
     <!--搜索框-->
     <div class="header-search">
-      <el-input placeholder="搜索" :prefix-icon="Search" v-model="keywords" @keyup.enter="goSearch"/>
+      <el-input placeholder="搜索" :prefix-icon="Search" v-model.trim="keywords" @keyup.enter="goSearch"/>
     </div>
     <!--设置-->
     <header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></header-nav>

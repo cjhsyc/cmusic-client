@@ -1,7 +1,7 @@
 <template>
   <el-form ref="updateForm" label-width="70px" :model="registerForm" :rules="SignUpRules">
     <el-form-item prop="username" label="用户名">
-      <el-input v-model="registerForm.username" placeholder="用户名"></el-input>
+      <el-input v-model.trim="registerForm.username" placeholder="用户名"></el-input>
     </el-form-item>
     <el-form-item label="性别">
       <el-radio-group v-model="registerForm.sex">
@@ -14,7 +14,7 @@
       <el-date-picker type="date" placeholder="选择日期" v-model="registerForm.birth" style="width: 100%"></el-date-picker>
     </el-form-item>
     <el-form-item prop="introduction" label="签名">
-      <el-input type="textarea" placeholder="签名" v-model="registerForm.introduction"></el-input>
+      <el-input type="textarea" placeholder="签名" v-model.trim="registerForm.introduction"></el-input>
     </el-form-item>
     <el-form-item prop="location" label="地区">
       <el-select v-model="registerForm.location" placeholder="地区" style="width: 100%">
@@ -22,10 +22,10 @@
       </el-select>
     </el-form-item>
     <el-form-item prop="phoneNum" label="手机">
-      <el-input placeholder="手机" v-model="registerForm.phoneNum"></el-input>
+      <el-input placeholder="手机" v-model.trim="registerForm.phoneNum"></el-input>
     </el-form-item>
     <el-form-item prop="email" label="邮箱">
-      <el-input v-model="registerForm.email" placeholder="邮箱"></el-input>
+      <el-input v-model.trim="registerForm.email" placeholder="邮箱"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button @click="goBack(-1)">取消</el-button>
@@ -62,14 +62,14 @@ const userId = computed(() => userStore.userId)
 
 async function getUserInfo(id: string) {
   const result = await getUserOfId(id)
-  registerForm.username = result.data[0].username
-  registerForm.sex = result.data[0].sex
-  registerForm.phoneNum = result.data[0].phoneNum
-  registerForm.email = result.data[0].email
-  registerForm.birth = result.data[0].birth
-  registerForm.introduction = result.data[0].introduction
-  registerForm.location = result.data[0].location
-  registerForm.userPic = result.data[0].avator
+  registerForm.username = result.data.username
+  registerForm.sex = result.data.sex
+  registerForm.phoneNum = result.data.phoneNum
+  registerForm.email = result.data.email
+  registerForm.birth = result.data.birth
+  registerForm.introduction = result.data.introduction
+  registerForm.location = result.data.location
+  registerForm.userPic = result.data.avator
 }
 
 async function saveMsg() {

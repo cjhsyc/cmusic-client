@@ -20,5 +20,8 @@ export default defineConfig({
       //路径别名
       '@': resolve(__dirname, './src')
     }
+  },
+  server:{
+    host: '0.0.0.0'
   }
 })

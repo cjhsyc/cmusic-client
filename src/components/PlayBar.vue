@@ -135,6 +135,8 @@ async function changeCollection() {
   params.append("type", "0") // 0 代表歌曲， 1 代表歌单
   params.append("songId", songId.value)
 
+  console.log(params.toString())
+
   const result = isCollection.value
       ? (await deleteCollection(params))
       : (await setCollection(params))
@@ -144,7 +146,7 @@ async function changeCollection() {
     type: result.type,
   })
 
-  if (result.data == true || result.data == false) isCollection.value = result.data
+  if (result.data === true || result.data === false) isCollection.value = result.data
 }
 
 onMounted(() => {

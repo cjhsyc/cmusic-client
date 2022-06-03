@@ -67,9 +67,12 @@ async function getRank(id: string) {
 async function getRankOfUser(userId: string, songListId: string) {
   if (userId) {
     const result = await getUserRank(userId, songListId)
+    console.log(result)
     score.value = result.data / 2
-    disabledRank.value = true
-    assistText.value = "已评价"
+    if (result.success){
+      disabledRank.value = true
+      assistText.value = "已评价"
+    }
   }
 }
 

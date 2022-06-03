@@ -35,7 +35,6 @@ const currentPlayList = computed(() => audioStore.currentPlayList) // 当前播�
 const showAside = computed(() => configStore.showAside) // 是否显示侧边栏
 
 onMounted(() => {
-  console.log(document.getElementById('box'))
   document.getElementById('box')!.addEventListener('click', () => {
     configStore.setShowAside(false)
   }, true)

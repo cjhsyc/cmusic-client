@@ -5,35 +5,35 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch, onMounted} from "vue";
-import {useConfigStore} from "@/store";
-import PlayList from "@/components/PlayList.vue";
-import {getSongListOfLikeTitle} from "@/api";
-import {useRoute} from 'vue-router'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useConfigStore } from '@/store'
+import PlayList from '@/components/PlayList.vue'
+import { getSongListOfLikeTitle } from '@/api'
+import { useRoute } from 'vue-router'
 
-const configStore = useConfigStore();
-const route = useRoute();
+const configStore = useConfigStore()
+const route = useRoute()
 
-const playList = ref([]);
-const searchWord = computed(() => configStore.searchWord);
+const playList = ref([])
+const searchWord = computed(() => configStore.searchWord)
 watch(searchWord, (value) => {
-  getSearchList(value);
-});
+  getSearchList(value)
+})
 
 async function getSearchList(value) {
-  if (!value) return;
+  if (!value) return
   const result = await getSongListOfLikeTitle(value)
   if (!result.data.length) {
-    (proxy as any).$message({
-      message: "暂无该歌曲内容",
-      type: "warning",
-    });
+    ;(proxy as any).$message({
+      message: '暂无该歌曲内容',
+      type: 'warning'
+    })
   } else {
-    playList.value = result.data;
+    playList.value = result.data
   }
 }
 
 onMounted(() => {
-  getSearchList(route.query.keywords);
-});
+  getSearchList(route.query.keywords)
+})
 </script>

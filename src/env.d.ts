@@ -1,14 +1,14 @@
 /// <reference types="vite/client" />
 
 declare module '*.vue' {
-  import type {DefineComponent} from 'vue'
+  import type { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
   const component: DefineComponent<{}, {}, any>
   export default component
 }
 
 declare module 'axios' {
-  import * as axios from "axios";
+  import * as axios from 'axios'
 
   interface AxiosInstance {
     (config: AxiosRequestConfig): Promise<any>
@@ -43,11 +43,11 @@ interface PlayMusic {
   currentSongList: Song[]
 }
 
-interface PlayMusicAddName extends PlayMusic{
+interface PlayMusicAddName extends PlayMusic {
   name: string
 }
 
-interface PlayMusicAddTitle extends PlayMusic{
+interface PlayMusicAddTitle extends PlayMusic {
   songTitle: string
   singerName: string
 }

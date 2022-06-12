@@ -1,28 +1,42 @@
 <template>
   <div class="play-list-container">
-    <c-nav :styleList="singerStyle" :activeName="activeName" @click="handleChangeView"></c-nav>
+    <c-nav
+      :styleList="singerStyle"
+      :activeName="activeName"
+      @click="handleChangeView"
+    ></c-nav>
     <play-list :playList="data" path="singer-detail"></play-list>
-    <el-pagination class="pagination" background layout="prev, pager, next, total" :current-page="currentPage"
-                   :page-size="pageSize" :total="allPlayList.length" @current-change="handleCurrentChange">
+    <el-pagination
+      class="pagination"
+      background
+      layout="prev, pager, next, total"
+      :current-page="currentPage"
+      :page-size="pageSize"
+      :total="allPlayList.length"
+      @current-change="handleCurrentChange"
+    >
     </el-pagination>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref, computed} from "vue";
-import CNav from "@/components/CNav.vue";
-import PlayList from "@/components/PlayList.vue";
-import {singerStyle} from "@/enums";
-import {getAllSinger,getSingerOfSex} from "@/api";
+import { ref, computed } from 'vue'
+import CNav from '@/components/CNav.vue'
+import PlayList from '@/components/PlayList.vue'
+import { singerStyle } from '@/enums'
+import { getAllSinger, getSingerOfSex } from '@/api'
 
 // data
-const activeName = ref("全部歌手")
+const activeName = ref('全部歌手')
 const pageSize = ref(15) // 页数
 const currentPage = ref(1) // 当前页
 const allPlayList = ref([])
 // computed
 const data = computed(() => {
-  return allPlayList.value.slice((currentPage.value - 1) * pageSize.value, currentPage.value * pageSize.value)
+  return allPlayList.value.slice(
+    (currentPage.value - 1) * pageSize.value,
+    currentPage.value * pageSize.value
+  )
 })
 
 // 获取所有歌手
@@ -42,7 +56,7 @@ function handleCurrentChange(val) {
 function handleChangeView(item) {
   activeName.value = item.name
   allPlayList.value = []
-  if (item.name === "全部歌手") {
+  if (item.name === '全部歌手') {
     getAllSinger()
   } else {
     getSingerSex(item.type)

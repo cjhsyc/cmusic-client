@@ -38,7 +38,7 @@ import CAudio from '@/layout/CAudio.vue'
   padding-left: 0;
   padding-right: 0;
 }
-#box{
+#box {
   min-height: calc(100vh - 200px);
 }
 </style>

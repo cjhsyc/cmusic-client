@@ -2,18 +2,24 @@
   <transition name="aside-fade">
     <div class="current-play" v-if="showAside">
       <h2 class="title">当前播放</h2>
-      <div class="control">共 {{ (currentPlayList?.length) || 0 }} 首</div>
+      <div class="control">共 {{ currentPlayList?.length || 0 }} 首</div>
       <ul class="menus">
-        <li v-for="(item, index) in currentPlayList" :class="{ 'is-play': songId === item.id }" :key="index"
-            @click="playMusic({
-            id: item.id,
-            url: item.url,
-            pic: item.pic,
-            index: index,
-            name: item.name,
-            lyric: item.lyric,
-            currentSongList: currentPlayList
-          })">
+        <li
+          v-for="(item, index) in currentPlayList"
+          :class="{ 'is-play': songId === item.id }"
+          :key="index"
+          @click="
+            playMusic({
+              id: item.id,
+              url: item.url,
+              pic: item.pic,
+              index: index,
+              name: item.name,
+              lyric: item.lyric,
+              currentSongList: currentPlayList
+            })
+          "
+        >
           {{ getSongTitle(item.name) }}
         </li>
       </ul>
@@ -22,27 +28,31 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from "vue"
-import {useAudioStore, useConfigStore} from '@/store'
-import hook from "@/hooks"
+import { computed, onMounted } from 'vue'
+import { useAudioStore, useConfigStore } from '@/store'
+import hook from '@/hooks'
 
 const audioStore = useAudioStore()
 const configStore = useConfigStore()
-const {getSongTitle, playMusic} = hook()
+const { getSongTitle, playMusic } = hook()
 
 const songId = computed(() => audioStore.songId) // 音乐 ID
 const currentPlayList = computed(() => audioStore.currentPlayList) // 当前播放
 const showAside = computed(() => configStore.showAside) // 是否显示侧边栏
 
 onMounted(() => {
-  document.getElementById('box')!.addEventListener('click', () => {
-    configStore.setShowAside(false)
-  }, true)
+  document.getElementById('box')!.addEventListener(
+    'click',
+    () => {
+      configStore.setShowAside(false)
+    },
+    true
+  )
 })
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 .aside-fade-enter-active {
   transition: all 0.3s ease;
@@ -112,5 +122,4 @@ onMounted(() => {
   color: @color-black;
   font-weight: bold;
 }
-
 </style>

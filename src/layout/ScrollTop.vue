@@ -7,23 +7,24 @@
 
 <script setup lang="ts">
 const returnTop = () => {
-  let timer: number = 0;
-  cancelAnimationFrame(timer);
-  const startTime = new Date();
-  const S = document.body.scrollTop || document.documentElement.scrollTop;
-  const T = 500;
+  let timer: number = 0
+  cancelAnimationFrame(timer)
+  const startTime = new Date()
+  const S = document.body.scrollTop || document.documentElement.scrollTop
+  const T = 500
   timer = requestAnimationFrame(function func() {
-    const diff: number = new Date().valueOf() - startTime.valueOf();
-    const t = T - Math.max(0, T - diff);
-    document.documentElement.scrollTop = document.body.scrollTop = S - (t * S) / T;
-    timer = requestAnimationFrame(func);
-    if (t === T) cancelAnimationFrame(timer);
-  });
+    const diff: number = new Date().valueOf() - startTime.valueOf()
+    const t = T - Math.max(0, T - diff)
+    document.documentElement.scrollTop = document.body.scrollTop =
+      S - (t * S) / T
+    timer = requestAnimationFrame(func)
+    if (t === T) cancelAnimationFrame(timer)
+  })
 }
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var.less";
+@import (reference) 'src/assets/css/var.less';
 
 .scroll-top {
   position: fixed;
@@ -49,7 +50,7 @@ const returnTop = () => {
   }
 
   &:before {
-    content: "回到顶部";
+    content: '回到顶部';
     position: absolute;
     font-weight: bold;
     font-size: small;

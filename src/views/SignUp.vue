@@ -4,12 +4,25 @@
     <div class="sign-head">
       <span>用户注册</span>
     </div>
-    <el-form ref="signUpForm" label-width="70px" status-icon :model="registerForm" :rules="SignUpRules">
+    <el-form
+      ref="signUpForm"
+      label-width="70px"
+      status-icon
+      :model="registerForm"
+      :rules="SignUpRules"
+    >
       <el-form-item prop="username" label="用户名">
-        <el-input v-model.trim="registerForm.username" placeholder="用户名"></el-input>
+        <el-input
+          v-model.trim="registerForm.username"
+          placeholder="用户名"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password" label="密码">
-        <el-input type="password" placeholder="密码" v-model.trim="registerForm.password"></el-input>
+        <el-input
+          type="password"
+          placeholder="密码"
+          v-model.trim="registerForm.password"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="sex" label="性别">
         <el-radio-group v-model="registerForm.sex">
@@ -19,21 +32,44 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item prop="phoneNum" label="手机">
-        <el-input placeholder="手机" v-model.trim="registerForm.phoneNum"></el-input>
+        <el-input
+          placeholder="手机"
+          v-model.trim="registerForm.phoneNum"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="email" label="邮箱">
-        <el-input v-model.trim="registerForm.email" placeholder="邮箱"></el-input>
+        <el-input
+          v-model.trim="registerForm.email"
+          placeholder="邮箱"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="birth" label="生日">
-        <el-date-picker type="date" placeholder="选择日期" v-model="registerForm.birth"
-                        style="width: 100%"></el-date-picker>
+        <el-date-picker
+          type="date"
+          placeholder="选择日期"
+          v-model="registerForm.birth"
+          style="width: 100%"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item prop="introduction" label="签名">
-        <el-input type="textarea" placeholder="签名" v-model.trim="registerForm.introduction"></el-input>
+        <el-input
+          type="textarea"
+          placeholder="签名"
+          v-model.trim="registerForm.introduction"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="location" label="地区">
-        <el-select v-model="registerForm.location" placeholder="地区" style="width: 100%">
-          <el-option v-for="item in AREA" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-select
+          v-model="registerForm.location"
+          placeholder="地区"
+          style="width: 100%"
+        >
+          <el-option
+            v-for="item in AREA"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item class="sign-btn">
@@ -45,24 +81,24 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
-import hook from "@/hooks";
-import LoginLogo from "@/components/LoginLogo.vue";
-import {register} from "@/api";
-import {getBirth} from "@/utils";
-import {AREA, RouterName, NavName, SignUpRules} from "@/enums";
+import { reactive, ref } from 'vue'
+import hook from '@/hooks'
+import LoginLogo from '@/components/LoginLogo.vue'
+import { register } from '@/api'
+import { getBirth } from '@/utils'
+import { AREA, RouterName, NavName, SignUpRules } from '@/enums'
 
-const {routerManager, changeIndex, goBack} = hook()
+const { routerManager, changeIndex, goBack } = hook()
 
 const registerForm = reactive({
-  username: "",
-  password: "",
-  sex: "",
-  phoneNum: "",
-  email: "",
+  username: '',
+  password: '',
+  sex: '',
+  phoneNum: '',
+  email: '',
   birth: new Date().toString(),
-  introduction: "",
-  location: "",
+  introduction: '',
+  location: ''
 })
 
 const signUpForm = ref<any>()
@@ -75,33 +111,32 @@ async function handleSignUp() {
   if (!canRun) return
 
   const params = new URLSearchParams()
-  params.append("username", registerForm.username)
-  params.append("password", registerForm.password)
-  params.append("sex", registerForm.sex)
-  params.append("phone_num", registerForm.phoneNum)
-  params.append("email", registerForm.email)
-  params.append("birth", getBirth(registerForm.birth))
-  params.append("introduction", registerForm.introduction)
-  params.append("location", registerForm.location)
+  params.append('username', registerForm.username)
+  params.append('password', registerForm.password)
+  params.append('sex', registerForm.sex)
+  params.append('phone_num', registerForm.phoneNum)
+  params.append('email', registerForm.email)
+  params.append('birth', getBirth(registerForm.birth))
+  params.append('introduction', registerForm.introduction)
+  params.append('location', registerForm.location)
 
   try {
     const result = await register(params)
     ElMessage({
       message: result.message,
-      type: result.type,
-    });
+      type: result.type
+    })
 
     if (result.success) {
       changeIndex(NavName.SignIn)
-      routerManager(RouterName.SignIn, {path: RouterName.SignIn})
+      routerManager(RouterName.SignIn, { path: RouterName.SignIn })
     }
   } catch (error) {
     console.error(error)
   }
 }
-
 </script>
 
 <style lang="less" scoped>
-@import "src/assets/css/sign";
+@import 'src/assets/css/sign';
 </style>

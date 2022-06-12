@@ -1,9 +1,9 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/:pathMatch(.*)*",
-    redirect: "/404",
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
   },
   {
     path: '/404',
@@ -15,62 +15,63 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/',
-        component: () => import("@/views/Home.vue")
+        component: () => import('@/views/Home.vue')
       },
       {
-        path: "/song-sheet-detail/:id",
-        component: () => import("@/views/songSheet/SongSheetDetail.vue")
+        path: '/song-sheet-detail/:id',
+        component: () => import('@/views/songSheet/SongSheetDetail.vue')
       },
       {
-        path: "/singer-detail/:id",
-        component: () => import("@/views/singer/SingerDetail.vue")
+        path: '/singer-detail/:id',
+        component: () => import('@/views/singer/SingerDetail.vue')
       },
       {
-        path: "/sign-in",
-        component: () => import("@/views/SignIn.vue"),
+        path: '/sign-in',
+        component: () => import('@/views/SignIn.vue')
       },
       {
-        path: "/sign-up",
-        component: () => import("@/views/SignUp.vue"),
+        path: '/sign-up',
+        component: () => import('@/views/SignUp.vue')
       },
       {
-        path: "/personal",
+        path: '/personal',
         meta: {
-          requireAuth: true,
+          requireAuth: true
         },
-        component: () => import("@/views/Personal.vue"),
-      }, {
-        path: "/personal-data",
-        component: () => import("@/views/setting/PersonalData.vue"),
+        component: () => import('@/views/Personal.vue')
       },
       {
-        path: "/setting",
+        path: '/personal-data',
+        component: () => import('@/views/setting/PersonalData.vue')
+      },
+      {
+        path: '/setting',
         meta: {
-          requireAuth: true,
+          requireAuth: true
         },
-        component: () => import("@/views/setting/Setting.vue"),
+        component: () => import('@/views/setting/Setting.vue'),
         children: [
           {
-            path: "/setting/PersonalData",
+            path: '/setting/PersonalData',
             meta: {
-              requireAuth: true,
+              requireAuth: true
             },
-            component: () => import("@/views/setting/PersonalData.vue"),
+            component: () => import('@/views/setting/PersonalData.vue')
           }
         ]
       },
       {
-        path: "/song-sheet",
-        component: () => import("@/views/songSheet/index.vue"),
+        path: '/song-sheet',
+        component: () => import('@/views/songSheet/index.vue')
       },
       {
-        path: "/singer",
-        component: () => import("@/views/singer/index.vue"),
+        path: '/singer',
+        component: () => import('@/views/singer/index.vue')
       },
       {
-        path: "/search",
-        component: () => import("@/views/search/index.vue"),
-      },
+        path: '/search',
+        component: () => import('@/views/search/index.vue')
+      }
     ]
   }
 ]

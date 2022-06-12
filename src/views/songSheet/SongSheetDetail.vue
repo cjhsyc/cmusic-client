@@ -1,7 +1,11 @@
 <template>
   <el-container>
     <el-aside class="album-slide">
-      <el-image class="album-img" fit="contain" :src="attachImageUrl(songDetails.pic)"/>
+      <el-image
+        class="album-img"
+        fit="contain"
+        :src="attachImageUrl(songDetails.pic)"
+      />
       <h3 class="album-info">{{ songDetails.title }}</h3>
     </el-aside>
     <el-main class="album-main">
@@ -16,7 +20,12 @@
         <span>{{ rank * 2 }}</span>
         <div>
           <h3>{{ assistText }} {{ score * 2 }}</h3>
-          <el-rate allow-half v-model="score" :disabled="disabledRank" @click="pushValue()"></el-rate>
+          <el-rate
+            allow-half
+            v-model="score"
+            :disabled="disabledRank"
+            @click="pushValue()"
+          ></el-rate>
         </div>
       </div>
       <!--歌曲-->
@@ -26,22 +35,29 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from "vue"
-import hook from "@/hooks"
-import SongList from "@/components/SongList.vue"
-import {getListSongOfSongId, getSongOfId, setRank, getUserRank, getRankOfSongListId, attachImageUrl} from "@/api"
-import {useUserStore, useAudioStore,} from '@/store'
+import { ref, computed } from 'vue'
+import hook from '@/hooks'
+import SongList from '@/components/SongList.vue'
+import {
+  getListSongOfSongId,
+  getSongOfId,
+  setRank,
+  getUserRank,
+  getRankOfSongListId,
+  attachImageUrl
+} from '@/api'
+import { useUserStore, useAudioStore } from '@/store'
 
 const userStore = useUserStore()
-const audioStore = useAudioStore();
-const {checkStatus} = hook()
+const audioStore = useAudioStore()
+const { checkStatus } = hook()
 
 const currentSongList = ref(<any>[]) // 存放的音乐
-const songListId = ref("") // 歌单 ID
+const songListId = ref('') // 歌单 ID
 const score = ref(0)
 const rank = ref(0)
 const disabledRank = ref(false)
-const assistText = ref("评价")
+const assistText = ref('评价')
 const songDetails = computed(() => <Song>audioStore.songDetails) // 单个歌单信息
 const userId = computed(() => userStore.userId)
 
@@ -69,9 +85,9 @@ async function getRankOfUser(userId: string, songListId: string) {
     const result = await getUserRank(userId, songListId)
     console.log(result)
     score.value = result.data / 2
-    if (result.success){
+    if (result.success) {
       disabledRank.value = true
-      assistText.value = "已评价"
+      assistText.value = '已评价'
     }
   }
 }
@@ -81,20 +97,20 @@ async function pushValue() {
   if (disabledRank.value || !checkStatus()) return
 
   const params = new URLSearchParams()
-  params.append("songListId", songListId.value)
-  params.append("consumerId", userId.value)
-  params.append("score", (score.value * 2).toString())
+  params.append('songListId', songListId.value)
+  params.append('consumerId', userId.value)
+  params.append('score', (score.value * 2).toString())
 
   const result = await setRank(params)
   ElMessage({
     message: result.message,
-    type: result.type,
+    type: result.type
   })
 
   if (result.success) {
     getRank(songListId.value)
     disabledRank.value = true
-    assistText.value = "已评价"
+    assistText.value = '已评价'
   }
 }
 
@@ -104,7 +120,7 @@ getSongId(songListId.value) // 获取歌单里面的歌曲ID
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 .album-slide {
   display: flex;

@@ -5,13 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import CIcon from "./CIcon.vue";
-import {Icon} from "@/enums";
+import CIcon from './CIcon.vue'
+import { Icon } from '@/enums'
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
-@import (reference) "src/assets/css/global";
+@import (reference) 'src/assets/css/var';
+@import (reference) 'src/assets/css/global';
 
 .login-logo {
   background-color: @color-blue-light;

@@ -4,7 +4,12 @@
     <ul class="play-body">
       <li class="card-frame" v-for="(item, index) in playList" :key="index">
         <div class="card" @click="goAblum(item)">
-          <el-image class="card-img" fit="contain" :src="attachImageUrl(item.pic)" lazy/>
+          <el-image
+            class="card-img"
+            fit="contain"
+            :src="attachImageUrl(item.pic)"
+            lazy
+          />
           <div class="mask">
             <c-icon class="mask-icon" :icon="Icon.BOFANG"></c-icon>
           </div>
@@ -17,9 +22,9 @@
 
 <script setup lang="ts">
 import CIcon from './CIcon.vue'
-import {attachImageUrl} from '@/api'
-import {Icon} from '@/enums'
-import {useAudioStore} from "@/store";
+import { attachImageUrl } from '@/api'
+import { Icon } from '@/enums'
+import { useAudioStore } from '@/store'
 import hook from '@/hooks'
 
 interface Props {
@@ -31,17 +36,17 @@ interface Props {
 const props = defineProps<Props>()
 
 const audioStore = useAudioStore()
-const {routerManager} = hook()
+const { routerManager } = hook()
 
 const goAblum = (item: Song) => {
   audioStore.setSongDetails(item)
-  routerManager(props.path, {path: `/${props.path}/${item.id}`})
+  routerManager(props.path, { path: `/${props.path}/${item.id}` })
 }
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
-@import (reference) "src/assets/css/global";
+@import (reference) 'src/assets/css/var';
+@import (reference) 'src/assets/css/global';
 
 .play-list {
   padding: 0 1rem;

@@ -1,35 +1,39 @@
 <template>
   <div class="search">
-    <c-nav :styleList="searchNavList" :activeName="activeName" @click="handleChangeView"></c-nav>
+    <c-nav
+      :styleList="searchNavList"
+      :activeName="activeName"
+      @click="handleChangeView"
+    ></c-nav>
     <component class="search-list" :is="currentView"></component>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, reactive, ref} from "vue";
-import CNav from "@/components/CNav.vue";
-import SearchSong from "./SearchSong.vue";
-import SearchSongList from "./SearchSongList.vue";
+import { computed, reactive, ref } from 'vue'
+import CNav from '@/components/CNav.vue'
+import SearchSong from './SearchSong.vue'
+import SearchSongList from './SearchSongList.vue'
 
 const searchNavList = reactive([
   {
-    name: "歌曲",
-    value: "SearchSong",
+    name: '歌曲',
+    value: 'SearchSong'
   },
   {
-    name: "歌单",
-    value: "SearchSongList",
+    name: '歌单',
+    value: 'SearchSongList'
   }
 ])
 const activeName = ref('歌曲')
 const currentViewName = ref('SearchSong')
-const currentView = computed(()=>{
+const currentView = computed(() => {
   return currentViewName.value === 'SearchSong' ? SearchSong : SearchSongList
 })
 
 const handleChangeView = (item) => {
-  activeName.value = item.name;
-  currentViewName.value = item.value;
+  activeName.value = item.name
+  currentViewName.value = item.value
 }
 </script>
 

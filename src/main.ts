@@ -1,6 +1,6 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import router from "@/router";
+import router from '@/router'
 import '@/assets/icons/index.js' //导入图标
 import '@/assets/css/index.less' //初始化样式
 import { createPinia } from 'pinia'

@@ -1,23 +1,41 @@
 <template>
   <div class="header">
     <!--图标-->
-    <div class="header-logo" @click="goPage('','')">
+    <div class="header-logo" @click="goPage('', '')">
       <c-icon :icon="Icon.ERJI"></c-icon>
       <span>{{ musicName }}</span>
     </div>
-    <header-nav class="header-nav" :styleList="headerNavList" :activeName="activeNavName"
-                @click="goPage"></header-nav>
+    <header-nav
+      class="header-nav"
+      :styleList="headerNavList"
+      :activeName="activeNavName"
+      @click="goPage"
+    ></header-nav>
     <!--搜索框-->
     <div class="header-search">
-      <el-input placeholder="搜索" :prefix-icon="Search" v-model.trim="keywords" @keyup.enter="goSearch"/>
+      <el-input
+        placeholder="搜索"
+        :prefix-icon="Search"
+        v-model.trim="keywords"
+        @keyup.enter="goSearch"
+      />
     </div>
     <!--设置-->
-    <header-nav v-if="!token" :styleList="signList" :activeName="activeNavName" @click="goPage"></header-nav>
+    <header-nav
+      v-if="!token"
+      :styleList="signList"
+      :activeName="activeNavName"
+      @click="goPage"
+    ></header-nav>
     <el-dropdown class="user-wrap" v-if="token" trigger="click">
-      <el-image class="user" fit="cover" :src="attachImageUrl(userPic)"/>
+      <el-image class="user" fit="cover" :src="attachImageUrl(userPic)" />
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="(item, index) in menuList" :key="index" @click.stop="goMenuList(item.path)">
+          <el-dropdown-item
+            v-for="(item, index) in menuList"
+            :key="index"
+            @click.stop="goMenuList(item.path)"
+          >
             {{ item.name }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -29,14 +47,22 @@
 <script setup lang="ts">
 import CIcon from '../../components/CIcon.vue'
 import HeaderNav from './HeaderNav.vue'
-import {Search} from "@element-plus/icons-vue"
-import {ref, computed} from "vue"
-import {Icon, NavName, RouterName, HEADERNAVLIST, MUSICNAME, SIGNLIST, MENULIST} from '@/enums'
+import { Search } from '@element-plus/icons-vue'
+import { ref, computed } from 'vue'
+import {
+  Icon,
+  NavName,
+  RouterName,
+  HEADERNAVLIST,
+  MUSICNAME,
+  SIGNLIST,
+  MENULIST
+} from '@/enums'
 import hook from '@/hooks'
-import {useConfigStore, useUserStore} from '@/store'
-import {attachImageUrl} from '@/api'
+import { useConfigStore, useUserStore } from '@/store'
+import { attachImageUrl } from '@/api'
 
-const {routerManager, changeIndex} = hook()
+const { routerManager, changeIndex } = hook()
 const configStore = useConfigStore()
 const userStore = useUserStore()
 
@@ -53,20 +79,23 @@ const token = computed(() => configStore.token)
 const goPage = (path: string, name: string) => {
   if (!path && !name) {
     changeIndex(NavName.Home)
-    routerManager(RouterName.Home, {path: RouterName.Home})
+    routerManager(RouterName.Home, { path: RouterName.Home })
   } else {
     changeIndex(name)
-    routerManager(path, {path})
+    routerManager(path, { path })
   }
 }
 const goSearch = () => {
-  if (keywords.value !== "") {
+  if (keywords.value !== '') {
     configStore.setSearchWord(keywords.value)
-    routerManager(RouterName.Search, {path: RouterName.Search, query: {keywords: keywords.value}})
+    routerManager(RouterName.Search, {
+      path: RouterName.Search,
+      query: { keywords: keywords.value }
+    })
   } else {
     ElMessage({
-      message: "搜索内容不能为空",
-      type: "error",
+      message: '搜索内容不能为空',
+      type: 'error'
     })
   }
 }
@@ -76,17 +105,16 @@ const goMenuList = (path: string) => {
     configStore.setToken(false)
     userStore.$reset()
     changeIndex(NavName.Home)
-    routerManager(RouterName.Home, {path: RouterName.Home})
+    routerManager(RouterName.Home, { path: RouterName.Home })
   } else {
-    routerManager(path, {path})
+    routerManager(path, { path })
   }
 }
-
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
-@import (reference) "src/assets/css/global";
+@import (reference) 'src/assets/css/var';
+@import (reference) 'src/assets/css/global';
 
 @media screen and (min-width: @sm) {
   .header-logo {

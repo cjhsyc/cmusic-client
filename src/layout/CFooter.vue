@@ -7,17 +7,17 @@
 </template>
 
 <script setup lang="ts">
-import { readonly } from "vue";
+import { readonly } from 'vue'
 
 const footerList = readonly([
-  "关于 | 帮助 | 条款 | 反馈",
-  "Copyright © 2019 Yin-Hongwei",
+  '关于 | 帮助 | 条款 | 反馈',
+  'Copyright © 2019 Yin-Hongwei'
 ])
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
-@import (reference) "src/assets/css/global";
+@import (reference) 'src/assets/css/var';
+@import (reference) 'src/assets/css/global';
 
 .footer {
   width: 100%;

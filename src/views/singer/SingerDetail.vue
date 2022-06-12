@@ -1,33 +1,39 @@
 <template>
   <el-container>
     <el-aside class="album-slide">
-      <el-image class="singer-img" fit="contain" :src="attachImageUrl(songDetails.pic)"/>
+      <el-image
+        class="singer-img"
+        fit="contain"
+        :src="attachImageUrl(songDetails?.pic as string)"
+      />
       <div class="album-info">
         <h2>基本资料</h2>
         <ul>
-          <li v-if="songDetails.sex !== 2">性别：{{ getUserSex(songDetails.sex) }}</li>
-          <li>生日：{{ getBirth(songDetails.birth) }}</li>
-          <li>故乡：{{ songDetails.location }}</li>
+          <li v-if="songDetails?.sex !== 2">
+            性别：{{ getUserSex(songDetails?.sex) }}
+          </li>
+          <li>生日：{{ getBirth(songDetails?.birth) }}</li>
+          <li>故乡：{{ songDetails?.location }}</li>
         </ul>
       </div>
     </el-aside>
     <el-main class="album-main">
-      <h1>{{ songDetails.name }}</h1>
-      <p>{{ songDetails.introduction }}</p>
+      <h1>{{ songDetails?.name }}</h1>
+      <p>{{ songDetails?.introduction }}</p>
       <song-list :songList="currentSongList"></song-list>
     </el-main>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, onMounted} from "vue";
-import hook from "@/hooks";
-import SongList from "@/components/SongList.vue";
-import {getSongOfSingerId,attachImageUrl} from "@/api";
-import {getBirth} from "@/utils";
-import {useAudioStore} from "@/store"
+import { ref, computed, onMounted } from 'vue'
+import hook from '@/hooks'
+import SongList from '@/components/SongList.vue'
+import { getSongOfSingerId, attachImageUrl } from '@/api'
+import { getBirth } from '@/utils'
+import { useAudioStore } from '@/store'
 
-const {getUserSex} = hook();
+const { getUserSex } = hook()
 const audioStore = useAudioStore()
 
 const currentSongList = ref([])
@@ -36,16 +42,15 @@ const songDetails = computed(() => audioStore.songDetails)
 onMounted(async () => {
   try {
     const result = await getSongOfSingerId(songDetails.value!.id)
-    currentSongList.value = result.data;
+    currentSongList.value = result.data
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-});
-
+})
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 .album-slide {
   display: flex;

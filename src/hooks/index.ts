@@ -1,9 +1,9 @@
-import {useConfigStore, useAudioStore} from '@/store'
-import {computed} from "vue"
-import {downloadMusic} from '@/api'
-import {RouterName} from "@/enums"
-import {LocationQueryRaw, useRouter} from "vue-router"
-import {ElMessage} from "element-plus";
+import { useConfigStore, useAudioStore } from '@/store'
+import { computed } from 'vue'
+import { downloadMusic } from '@/api'
+import { RouterName } from '@/enums'
+import { LocationQueryRaw, useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 interface routerOptions {
   path: string
@@ -18,20 +18,20 @@ export default () => {
 
   function getUserSex(sex: 0 | 1) {
     if (sex === 0) {
-      return "女"
+      return '女'
     } else if (sex === 1) {
-      return "男"
+      return '男'
     }
   }
 
   // 获取歌曲名
   function getSongTitle(str: string) {
-    return str.split("-")[1]
+    return str.split('-')[1]
   }
 
   // 获取歌手名
   function getSingerName(str: string) {
-    return str.split("-")[0]
+    return str.split('-')[0]
   }
 
   // 判断登录状态
@@ -39,8 +39,8 @@ export default () => {
     if (!token.value) {
       if (status !== false)
         ElMessage({
-          message: "请先登录",
-          type: "warning",
+          message: '请先登录',
+          type: 'warning'
         })
       return false
     }
@@ -48,7 +48,15 @@ export default () => {
   }
 
   // 播放
-  function playMusic({id, url, pic, index, name, lyric, currentSongList}: PlayMusicAddName) {
+  function playMusic({
+    id,
+    url,
+    pic,
+    index,
+    name,
+    lyric,
+    currentSongList
+  }: PlayMusicAddName) {
     const songTitle = getSongTitle(name)
     const singerName = getSingerName(name)
     audioStore.playMusic({
@@ -59,25 +67,31 @@ export default () => {
       songTitle,
       singerName,
       lyric,
-      currentSongList,
+      currentSongList
     })
   }
 
   // 下载
-  async function download({songUrl, songName}: { songUrl: string, songName: string }) {
+  async function download({
+    songUrl,
+    songName
+  }: {
+    songUrl: string
+    songName: string
+  }) {
     if (!songUrl) {
       ElMessage({
-        message: "下载链接为空！",
-        type: "error",
+        message: '下载链接为空！',
+        type: 'error'
       })
-      console.error("下载链接为空！")
+      console.error('下载链接为空！')
       return
     }
 
     const result = await downloadMusic(songUrl)
-    const eleLink = document.createElement("a")
+    const eleLink = document.createElement('a')
     eleLink.download = `${songName}.mp3`
-    eleLink.style.display = "none"
+    eleLink.style.display = 'none'
     // 字符内容转变成 blob 地址
     const blob = new Blob([result.data])
     eleLink.href = URL.createObjectURL(blob)
@@ -95,7 +109,7 @@ export default () => {
   function routerManager(routerName: string | number, options: routerOptions) {
     switch (routerName) {
       case RouterName.Search:
-        router.push({path: options.path, query: options.query})
+        router.push({ path: options.path, query: options.query })
         break
       case RouterName.Home:
       case RouterName.SongSheet:
@@ -111,7 +125,7 @@ export default () => {
       case RouterName.Lyric:
       case RouterName.Error:
       default:
-        router.push({path: options.path})
+        router.push({ path: options.path })
         break
     }
   }
@@ -129,6 +143,6 @@ export default () => {
     playMusic,
     routerManager,
     goBack,
-    download,
+    download
   }
 }

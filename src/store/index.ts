@@ -1,6 +1,6 @@
-import {defineStore} from "pinia";
-import {getAllSinger, getSongList} from '@/api'
-import {Icon} from "@/enums";
+import { defineStore } from 'pinia'
+import { getAllSinger, getSongList } from '@/api'
+import { Icon } from '@/enums'
 
 export const useSongStore = defineStore('song', {
   state() {
@@ -43,10 +43,10 @@ export const useAudioStore = defineStore('audio', {
     return {
       /** 音乐信息 */
       songId: '', // 音乐 ID
-      songTitle: "", // 歌名
-      songUrl: "", // 音乐 URL
+      songTitle: '', // 歌名
+      songUrl: '', // 音乐 URL
       songPic: `/img/songPic/tubiao.jpg`, // 歌曲图片
-      singerName: "", //  歌手名
+      singerName: '', //  歌手名
       lyric: <string[]>[], // 处理后的歌词数据
 
       /** 音乐播放信息 */
@@ -61,7 +61,7 @@ export const useAudioStore = defineStore('audio', {
       /** 音乐列表信息 */
       currentPlayList: <Song[]>[], // 当前播放列表
       songDetails: <Song | null>null, // 单个歌单信息
-      currentPlayIndex: -1, // 当前歌曲在歌曲列表的位置
+      currentPlayIndex: -1 // 当前歌曲在歌曲列表的位置
     }
   },
   actions: {
@@ -114,23 +114,23 @@ export const useConfigStore = defineStore('config', {
     return {
       token: false, // 用户是否登录
       showAside: false, // 是否显示侧边栏
-      searchWord: "", // 搜索关键词
-      activeNavName: "", // 导航栏名称
+      searchWord: '', // 搜索关键词
+      activeNavName: '' // 导航栏名称
     }
   },
   actions: {
     setToken(token: boolean) {
-      this.token = token;
+      this.token = token
     },
     setActiveNavName(activeNavName: string) {
-      this.activeNavName = activeNavName;
+      this.activeNavName = activeNavName
     },
     setShowAside(showAside: boolean) {
-      this.showAside = showAside;
+      this.showAside = showAside
     },
     setSearchWord(searchWord: string) {
-      this.searchWord = searchWord;
-    },
+      this.searchWord = searchWord
+    }
   },
   // 开启数据缓存
   persist: {
@@ -143,18 +143,18 @@ export const useUserStore = defineStore('user', {
     return {
       userId: '', // ID
       username: '', // 名字
-      userPic: '', // 图片
+      userPic: '' // 图片
     }
   },
   actions: {
     setUserId(userId: string) {
-      this.userId = userId;
+      this.userId = userId
     },
     setUsername(username: string) {
-      this.username = username;
+      this.username = username
     },
     setUserPic(userPic: string) {
-      this.userPic = userPic;
+      this.userPic = userPic
     }
   },
   // 开启数据缓存

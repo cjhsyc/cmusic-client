@@ -1,46 +1,67 @@
 <template>
   <!--轮播图-->
-  <el-carousel class="swiper-container" type="card" height="20vw" :interval="4000">
+  <el-carousel
+    class="swiper-container"
+    type="card"
+    height="20vw"
+    :interval="4000"
+  >
     <el-carousel-item v-for="(item, index) in swiperList" :key="index">
-      <img :src="item.picImg" alt=""/>
+      <img :src="item.picImg" alt="" />
     </el-carousel-item>
   </el-carousel>
   <!--热门歌单-->
-  <play-list class="play-list-container" title="歌单" path="song-sheet-detail" :playList="songList"></play-list>
+  <play-list
+    class="play-list-container"
+    title="歌单"
+    path="song-sheet-detail"
+    :playList="songList"
+  ></play-list>
   <!--热门歌手-->
-  <play-list class="play-list-container" title="歌手" path="singer-detail" :playList="singerList"></play-list>
+  <play-list
+    class="play-list-container"
+    title="歌手"
+    path="singer-detail"
+    :playList="singerList"
+  ></play-list>
 </template>
 
 <script setup lang="ts">
 import PlayList from '@/components/PlayList.vue'
-import {NavName, swiperList} from "@/enums"
-import {useSongStore} from '@/store'
-import {onMounted, ref} from "vue";
+import { NavName, swiperList } from '@/enums'
+import { useSongStore } from '@/store'
+import { onMounted, ref } from 'vue'
 import hook from '@/hooks'
 
 const songList = ref<Song[]>([])
 const singerList = ref<Singer[]>([])
-const {changeIndex} = hook()
+const { changeIndex } = hook()
 
 const songStore = useSongStore()
 
-songStore.reqSongList().then(() => {
-  songList.value = songStore.popularSong
-}).catch(err => {
-  console.log(err)
-})
-songStore.reqSingerList().then(() => {
-  singerList.value = songStore.popularSinger
-}).catch(err => {
-  console.log(err)
-})
+songStore
+  .reqSongList()
+  .then(() => {
+    songList.value = songStore.popularSong
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+songStore
+  .reqSingerList()
+  .then(() => {
+    singerList.value = songStore.popularSinger
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 onMounted(() => {
-  changeIndex(NavName.Home);
+  changeIndex(NavName.Home)
 })
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 /*轮播图*/
 .swiper-container {

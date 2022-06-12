@@ -1,7 +1,11 @@
 <template>
   <ul class="header-nav">
-    <li :class="{ active: item.name === activeName }" v-for="item in styleList" :key="item"
-        @click="handleChangeView(item)">
+    <li
+      :class="{ active: item.name === activeName }"
+      v-for="item in styleList"
+      :key="item"
+      @click="handleChangeView(item)"
+    >
       {{ item.name }}
     </li>
   </ul>
@@ -9,7 +13,7 @@
 
 <script setup lang="ts">
 interface Props {
-  activeName: string,
+  activeName: string
   styleList: Array<string>
 }
 
@@ -17,12 +21,12 @@ defineProps<Props>()
 const emit = defineEmits(['click'])
 
 function handleChangeView(item: any) {
-  emit("click", item.path, item.name);
+  emit('click', item.path, item.name)
 }
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 li {
   margin: @header-nav-margin;

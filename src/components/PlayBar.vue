@@ -4,11 +4,20 @@
       <c-icon :icon="Icon.ZHEDIE" @click="toggle = !toggle"></c-icon>
     </div>
     <!--播放进度-->
-    <el-slider class="progress" v-model="nowTime" @change="changeTime" size="small"></el-slider>
+    <el-slider
+      class="progress"
+      v-model="nowTime"
+      @change="changeTime"
+      size="small"
+    ></el-slider>
     <div class="control-box">
       <div class="info-box">
         <!--歌曲图片-->
-        <el-image class="song-bar-img" fit="contain" :src="attachImageUrl(songPic)"/>
+        <el-image
+          class="song-bar-img"
+          fit="contain"
+          :src="attachImageUrl(songPic)"
+        />
         <!--播放开始结束时间-->
         <div v-if="songId">
           <div class="song-info">{{ songTitle }} - {{ singerName }}</div>
@@ -16,9 +25,17 @@
         </div>
       </div>
       <div class="song-ctr">
-        <c-icon class="play-show" :icon="playStateList[playStateIndex]" @click="changePlayState"></c-icon>
+        <c-icon
+          class="play-show"
+          :icon="playStateList[playStateIndex]"
+          @click="changePlayState"
+        ></c-icon>
         <!--上一首-->
-        <c-icon class="play-show" :icon="Icon.SHANGYISHOU" @click="prev"></c-icon>
+        <c-icon
+          class="play-show"
+          :icon="Icon.SHANGYISHOU"
+          @click="prev"
+        ></c-icon>
         <!--播放-->
         <c-icon :icon="playBtnIcon" @click="togglePlay"></c-icon>
         <!--下一首-->
@@ -29,19 +46,30 @@
           <c-icon v-else :icon="Icon.JINGYIN"></c-icon>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-slider class="slider" style="height: 150px; margin: 10px 0" v-model="volume"
-                         :vertical="true"></el-slider>
+              <el-slider
+                class="slider"
+                style="height: 150px; margin: 10px 0"
+                v-model="volume"
+                :vertical="true"
+              ></el-slider>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
       </div>
       <div class="song-ctr song-edit">
         <!--收藏-->
-        <c-icon class="play-show" :class="{ active: isCollection }" :icon="isCollection ? Icon.Like : Icon.Dislike"
-                @click="changeCollection"></c-icon>
+        <c-icon
+          class="play-show"
+          :class="{ active: isCollection }"
+          :icon="isCollection ? Icon.Like : Icon.Dislike"
+          @click="changeCollection"
+        ></c-icon>
         <!--下载-->
-        <c-icon class="play-show" :icon="Icon.XIAZAI"
-                @click="download({songUrl,songName: singerName + '-' + songTitle,})"></c-icon>
+        <c-icon
+          class="play-show"
+          :icon="Icon.XIAZAI"
+          @click="download({ songUrl, songName: singerName + '-' + songTitle })"
+        ></c-icon>
         <!--歌曲列表-->
         <c-icon :icon="Icon.LIEBIAO" @click.stop="changeAside"></c-icon>
       </div>
@@ -51,17 +79,22 @@
 
 <script setup lang="ts">
 import CIcon from './CIcon.vue'
-import {Icon} from '@/enums'
-import {attachImageUrl, collectionIs, deleteCollection, setCollection} from '@/api'
-import {computed, onMounted, reactive, ref, watch} from "vue"
-import {useAudioStore, useUserStore, useConfigStore} from "@/store"
-import {formatSeconds} from '@/utils'
+import { Icon } from '@/enums'
+import {
+  attachImageUrl,
+  collectionIs,
+  deleteCollection,
+  setCollection
+} from '@/api'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useAudioStore, useUserStore, useConfigStore } from '@/store'
+import { formatSeconds } from '@/utils'
 import hook from '@/hooks'
 
-const {playMusic, checkStatus, download} = hook()
+const { playMusic, checkStatus, download } = hook()
 const audioStore = useAudioStore()
 const userStore = useUserStore()
-const configStore = useConfigStore();
+const configStore = useConfigStore()
 
 const userId = computed(() => userStore.userId)
 const token = computed(() => configStore.token)
@@ -121,9 +154,9 @@ async function initCollection() {
   if (!checkStatus(false)) return
 
   const params = new URLSearchParams()
-  params.append("userId", userId.value)
-  params.append("type", "0") // 0 代表歌曲， 1 代表歌单
-  params.append("songId", songId.value)
+  params.append('userId', userId.value)
+  params.append('type', '0') // 0 代表歌曲， 1 代表歌单
+  params.append('songId', songId.value)
   isCollection.value = (await collectionIs(params)).data
 }
 
@@ -131,22 +164,23 @@ async function changeCollection() {
   if (!checkStatus()) return
 
   const params = new URLSearchParams()
-  params.append("userId", userId.value)
-  params.append("type", "0") // 0 代表歌曲， 1 代表歌单
-  params.append("songId", songId.value)
+  params.append('userId', userId.value)
+  params.append('type', '0') // 0 代表歌曲， 1 代表歌单
+  params.append('songId', songId.value)
 
   console.log(params.toString())
 
   const result = isCollection.value
-      ? (await deleteCollection(params))
-      : (await setCollection(params))
+    ? await deleteCollection(params)
+    : await setCollection(params)
 
   ElMessage({
     message: result.message,
-    type: result.type,
+    type: result.type
   })
 
-  if (result.data === true || result.data === false) isCollection.value = result.data
+  if (result.data === true || result.data === false)
+    isCollection.value = result.data
 }
 
 onMounted(() => {
@@ -158,7 +192,10 @@ const changeTime = () => {
 }
 
 const changePlayState = () => {
-  playStateIndex.value = playStateIndex.value >= playStateList.length - 1 ? 0 : ++playStateIndex.value
+  playStateIndex.value =
+    playStateIndex.value >= playStateList.length - 1
+      ? 0
+      : ++playStateIndex.value
   playState.value = playStateList[playStateIndex.value]
 }
 const togglePlay = () => {
@@ -172,7 +209,10 @@ const prev = () => {
     playIndex = playIndex === currentPlayIndex.value ? playIndex + 1 : playIndex
     audioStore.setCurrentPlayIndex(playIndex)
     toPlay(currentPlayList.value[playIndex].url)
-  } else if (currentPlayIndex.value !== -1 && currentPlayList.value.length > 1) {
+  } else if (
+    currentPlayIndex.value !== -1 &&
+    currentPlayList.value.length > 1
+  ) {
     if (currentPlayIndex.value > 0) {
       audioStore.setCurrentPlayIndex(currentPlayIndex.value - 1)
       toPlay(currentPlayList.value[currentPlayIndex.value].url)
@@ -190,7 +230,10 @@ const next = () => {
     playIndex = playIndex === currentPlayIndex.value ? playIndex + 1 : playIndex
     audioStore.setCurrentPlayIndex(playIndex)
     toPlay(currentPlayList.value[playIndex].url)
-  } else if (currentPlayIndex.value !== -1 && currentPlayList.value.length > 1) {
+  } else if (
+    currentPlayIndex.value !== -1 &&
+    currentPlayList.value.length > 1
+  ) {
     if (currentPlayIndex.value < currentPlayList.value.length - 1) {
       audioStore.setCurrentPlayIndex(currentPlayIndex.value + 1)
       toPlay(currentPlayList.value[currentPlayIndex.value].url)
@@ -200,7 +243,6 @@ const next = () => {
     }
   }
 }
-
 
 // 选中播放
 const toPlay = (url: string) => {
@@ -213,7 +255,7 @@ const toPlay = (url: string) => {
       index: currentPlayIndex.value,
       name: song.name,
       lyric: song.lyric,
-      currentSongList: currentPlayList.value,
+      currentSongList: currentPlayList.value
     })
   }
 }
@@ -222,11 +264,10 @@ const changeAside = () => {
   console.log('change')
   configStore.setShowAside(!showAside.value)
 }
-
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 @import (reference) 'src/assets/css/global';
 
 .play-bar {
@@ -336,5 +377,4 @@ const changeAside = () => {
     display: none;
   }
 }
-
 </style>

@@ -9,25 +9,27 @@
         <Password></Password>
       </el-tab-pane>
       <el-tab-pane label="账号和安全" class="content">
-        <el-button type="danger" :icon="Delete" @click="cancelAccount">注销账号</el-button>
+        <el-button type="danger" :icon="Delete" @click="cancelAccount"
+          >注销账号</el-button
+        >
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
-import {Delete} from "@element-plus/icons-vue";
-import PersonalData from "./PersonalData.vue";
-import Password from "./Password.vue";
-import {deleteUser} from "@/api";
-import {useConfigStore, useUserStore} from "@/store";
-import hook from "@/hooks";
-import {RouterName} from "@/enums";
+import { computed } from 'vue'
+import { Delete } from '@element-plus/icons-vue'
+import PersonalData from './PersonalData.vue'
+import Password from './Password.vue'
+import { deleteUser } from '@/api'
+import { useConfigStore, useUserStore } from '@/store'
+import hook from '@/hooks'
+import { RouterName } from '@/enums'
 
 const configStore = useConfigStore()
 const userStore = useUserStore()
-const {routerManager} = hook()
+const { routerManager } = hook()
 
 const userId = computed(() => userStore.userId)
 
@@ -35,16 +37,15 @@ async function cancelAccount() {
   const result = await deleteUser(userId.value)
   ElMessage({
     message: result.message,
-    type: result.type,
+    type: result.type
   })
-  routerManager(RouterName.SignIn, {path: RouterName.SignIn})
+  routerManager(RouterName.SignIn, { path: RouterName.SignIn })
   configStore.setToken(false)
 }
-
 </script>
 
 <style lang="less" scoped>
-@import (reference) "src/assets/css/var";
+@import (reference) 'src/assets/css/var';
 
 h1 {
   border-bottom: 3px solid @color-light-grey;

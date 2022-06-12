@@ -8,6 +8,4 @@
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 </script>
 
-<style>
-
-</style>
+<style></style>

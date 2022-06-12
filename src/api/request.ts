@@ -7,19 +7,23 @@ const request = axios.create({
 })
 
 // @ts-ignore
-request.interceptors.request.use((config) => {
-  return config
-}, // @ts-ignore
-    (error) => {
-  return Promise.reject(error)
-})
+request.interceptors.request.use(
+  (config) => {
+    return config
+  }, // @ts-ignore
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 // @ts-ignore
-request.interceptors.response.use((response) => {
-  return response.data
-}, // @ts-ignore
-    (error) => {
-  return Promise.reject(error)
-})
+request.interceptors.response.use(
+  (response) => {
+    return response.data
+  }, // @ts-ignore
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 export default request

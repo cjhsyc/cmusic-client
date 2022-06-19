@@ -1,10 +1,6 @@
 <template>
   <div class="search">
-    <c-nav
-      :styleList="searchNavList"
-      :activeName="activeName"
-      @click="handleChangeView"
-    ></c-nav>
+    <c-nav :styleList="searchNavList" :activeName="activeName" @click="handleChangeView"></c-nav>
     <component class="search-list" :is="currentView"></component>
   </div>
 </template>

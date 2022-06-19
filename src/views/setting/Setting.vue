@@ -9,9 +9,7 @@
         <Password></Password>
       </el-tab-pane>
       <el-tab-pane label="账号和安全" class="content">
-        <el-button type="danger" :icon="Delete" @click="cancelAccount"
-          >注销账号</el-button
-        >
+        <el-button type="danger" :icon="Delete" @click="cancelAccount">注销账号</el-button>
       </el-tab-pane>
     </el-tabs>
   </div>

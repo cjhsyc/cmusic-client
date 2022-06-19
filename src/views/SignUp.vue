@@ -12,10 +12,7 @@
       :rules="SignUpRules"
     >
       <el-form-item prop="username" label="用户名">
-        <el-input
-          v-model.trim="registerForm.username"
-          placeholder="用户名"
-        ></el-input>
+        <el-input v-model.trim="registerForm.username" placeholder="用户名"></el-input>
       </el-form-item>
       <el-form-item prop="password" label="密码">
         <el-input
@@ -32,16 +29,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item prop="phoneNum" label="手机">
-        <el-input
-          placeholder="手机"
-          v-model.trim="registerForm.phoneNum"
-        ></el-input>
+        <el-input placeholder="手机" v-model.trim="registerForm.phoneNum"></el-input>
       </el-form-item>
       <el-form-item prop="email" label="邮箱">
-        <el-input
-          v-model.trim="registerForm.email"
-          placeholder="邮箱"
-        ></el-input>
+        <el-input v-model.trim="registerForm.email" placeholder="邮箱"></el-input>
       </el-form-item>
       <el-form-item prop="birth" label="生日">
         <el-date-picker
@@ -59,11 +50,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item prop="location" label="地区">
-        <el-select
-          v-model="registerForm.location"
-          placeholder="地区"
-          style="width: 100%"
-        >
+        <el-select v-model="registerForm.location" placeholder="地区" style="width: 100%">
           <el-option
             v-for="item in AREA"
             :key="item.value"

@@ -49,15 +49,7 @@ import CIcon from '../../components/CIcon.vue'
 import HeaderNav from './HeaderNav.vue'
 import { Search } from '@element-plus/icons-vue'
 import { ref, computed } from 'vue'
-import {
-  Icon,
-  NavName,
-  RouterName,
-  HEADERNAVLIST,
-  MUSICNAME,
-  SIGNLIST,
-  MENULIST
-} from '@/enums'
+import { Icon, NavName, RouterName, HEADERNAVLIST, MUSICNAME, SIGNLIST, MENULIST } from '@/enums'
 import hook from '@/hooks'
 import { useConfigStore, useUserStore } from '@/store'
 import { attachImageUrl } from '@/api'

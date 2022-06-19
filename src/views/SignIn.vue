@@ -4,17 +4,9 @@
     <div class="sign-head">
       <span>帐号登录</span>
     </div>
-    <el-form
-      ref="signInForm"
-      status-icon
-      :model="registerForm"
-      :rules="SignInRules"
-    >
+    <el-form ref="signInForm" status-icon :model="registerForm" :rules="SignInRules">
       <el-form-item prop="username">
-        <el-input
-          placeholder="用户名"
-          v-model.trim="registerForm.username"
-        ></el-input>
+        <el-input placeholder="用户名" v-model.trim="registerForm.username"></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input

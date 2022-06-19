@@ -15,8 +15,7 @@ const returnTop = () => {
   timer = requestAnimationFrame(function func() {
     const diff: number = new Date().valueOf() - startTime.valueOf()
     const t = T - Math.max(0, T - diff)
-    document.documentElement.scrollTop = document.body.scrollTop =
-      S - (t * S) / T
+    document.documentElement.scrollTop = document.body.scrollTop = S - (t * S) / T
     timer = requestAnimationFrame(func)
     if (t === T) cancelAnimationFrame(timer)
   })

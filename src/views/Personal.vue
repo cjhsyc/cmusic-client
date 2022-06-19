@@ -11,16 +11,10 @@
         <div class="username">{{ personalInfo.username }}</div>
         <div class="introduction">{{ personalInfo.introduction }}</div>
       </div>
-      <el-button class="edit-info" round :icon="Edit" @click="goPage"
-        >修改个人信息</el-button
-      >
+      <el-button class="edit-info" round :icon="Edit" @click="goPage">修改个人信息</el-button>
     </div>
     <div class="personal-body">
-      <song-list
-        :songList="collectSongList"
-        :show="true"
-        @changeData="changeData"
-      ></song-list>
+      <song-list :songList="collectSongList" :show="true" @changeData="changeData"></song-list>
     </div>
     <el-dialog v-model="dialogTableVisible" title="修改头像">
       <upload></upload>
@@ -35,12 +29,7 @@ import { Edit } from '@element-plus/icons-vue'
 import SongList from '@/components/SongList.vue'
 import Upload from '@/views/setting/Upload.vue'
 import hook from '@/hooks'
-import {
-  getCollectionOfUser,
-  getSongOfId,
-  getUserOfId,
-  attachImageUrl
-} from '@/api'
+import { getCollectionOfUser, getSongOfId, getUserOfId, attachImageUrl } from '@/api'
 import { RouterName } from '@/enums'
 
 const { routerManager } = hook()

@@ -9,9 +9,7 @@
       <div class="album-info">
         <h2>基本资料</h2>
         <ul>
-          <li v-if="songDetails?.sex !== 2">
-            性别：{{ getUserSex(songDetails?.sex) }}
-          </li>
+          <li v-if="songDetails?.sex !== 2">性别：{{ getUserSex(songDetails?.sex) }}</li>
           <li>生日：{{ getBirth(songDetails?.birth) }}</li>
           <li>故乡：{{ songDetails?.location }}</li>
         </ul>

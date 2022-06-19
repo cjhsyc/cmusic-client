@@ -1,10 +1,6 @@
 <template>
   <div class="play-list-container">
-    <c-nav
-      :styleList="songStyle"
-      :activeName="activeName"
-      @click="handleChangeView"
-    ></c-nav>
+    <c-nav :styleList="songStyle" :activeName="activeName" @click="handleChangeView"></c-nav>
     <play-list :playList="data" path="song-sheet-detail"></play-list>
     <el-pagination
       class="pagination"

@@ -12,9 +12,7 @@
       </el-icon>
       <div class="el-upload__text">将文件拖到此处或点击上传</div>
       <template #tip>
-        <p class="el-upload__tip">
-          只能上传 {{ uploadTypes.join('、') }} 文件, 且不超过3M
-        </p>
+        <p class="el-upload__tip">只能上传 {{ uploadTypes.join('、') }} 文件, 且不超过3M</p>
       </template>
     </el-upload>
   </div>
@@ -38,9 +36,7 @@ function upload() {
 function beforeAvatarUpload(file: any) {
   const ltCode = 3
   const isLt10M = file.size / 1024 / 1024
-  const isExistFileType = uploadTypes.value.includes(
-    file.type.replace(/image\//, '')
-  )
+  const isExistFileType = uploadTypes.value.includes(file.type.replace(/image\//, ''))
 
   if (isLt10M > ltCode || isLt10M <= 0) {
     ElMessage.error(`图片大小范围是 0~${ltCode}MB!`)
